@@ -31,7 +31,7 @@ type Mutation {
         title: String!
         content: String!
     ) : Article
-        @field(reolver: "ArticleMutator@create")
+        @field(resolver: "ArticleMutator@create")
         @middleware (checks: ["auth:api"])
 
 
