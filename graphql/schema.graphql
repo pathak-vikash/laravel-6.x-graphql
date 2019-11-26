@@ -27,9 +27,17 @@ type Mutation {
         password: String! @bcrypt @rules(apply: ["min:6"])
     ) : User @create
 
+    createArticle(
+        title: String!
+        content: String!
+    ) : Article
+        @field(reolver: "ArticleMutator@create")
+        @middleware (checks: ["auth:api"])
+
 
     login(
         email: String!
         password: String!
-    ) : String @field(resolver: "AuthMutator@resolve")
+    ) : String 
+        @field(resolver: "AuthMutator@resolve")
 }
