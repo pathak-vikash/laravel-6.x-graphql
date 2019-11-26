@@ -2,10 +2,19 @@ type User {
     id: ID!
     name: String!
     email: String!
+    articles: [Article!]! @hasMany
+}
+
+type Article {
+    id: ID!
+    title: String!
+    content: String!
+    author: User! @belongsTo(relation: "user")
 }
 
 type Query {
     user(id: ID! @eq): User @find
-    users: [User!]! @all
-    paginate_users: [User!]! @paginate
+    users: [User!]! @paginate
+    article(id: ID! @eq): Article @find
+    articles: [Article!]! @paginate
 }
