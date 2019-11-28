@@ -14,6 +14,8 @@ type Article {
 
 type Query {
     user(id: ID! @eq): User @find
+    all_users: [User!]! @all
+    user_by_name(name: String! @eq): User @find
     users: [User!]! @paginate
     article(id: ID! @eq): Article @find
     articles: [Article!]! @paginate
