@@ -15,7 +15,7 @@ type Article {
 type Query {
     user(id: ID! @eq): User @find
     all_users: [User!]! @all
-    user_by_name(name: String! @eq): User @find
+    users_by_name(name: String!): [User!]! @field(resolver: "UserQuery@resolve")
     users(name: String @where(operator: "like")): [User!]! @paginate
     article(id: ID! @eq): Article @find
     articles: [Article!]! @paginate
