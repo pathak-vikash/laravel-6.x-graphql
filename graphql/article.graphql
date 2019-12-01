@@ -1,0 +1,22 @@
+type Article {
+    id: ID!
+    title: String!
+    content: String!
+    author: User! @belongsTo(relation: "user")
+}
+
+extend type Query {
+    article(id: ID! @eq): Article @find
+    articles: [Article!]! @paginate
+}
+
+
+extend type Mutation {
+    createArticle(
+        title: String!
+        content: String!
+    ) : Article
+        @field(resolver: "ArticleMutator@create")
+        @middleware (checks: ["auth:api"])
+
+}

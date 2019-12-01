@@ -1,0 +1,11 @@
+extend type Mutation {
+    login(
+        email: String!
+        password: String!
+    ) : String 
+        @field(resolver: "AuthMutator@resolve")
+}
+
+extend type Query {
+    me: User @auth(guard: "api")
+}

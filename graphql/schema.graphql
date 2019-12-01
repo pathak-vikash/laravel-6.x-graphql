@@ -1,46 +1,13 @@
-type User {
-    id: ID!
-    name: String!
-    email: String!
-    articles: [Article!]! @hasMany
-}
-
-type Article {
-    id: ID!
-    title: String!
-    content: String!
-    author: User! @belongsTo(relation: "user")
-}
-
 type Query {
-    user(id: ID! @eq): User @find
-    all_users: [User!]! @all
-    users_by_name(name: String!): [User!]! @field(resolver: "UserQuery@resolve")
-    users(name: String @where(operator: "like")): [User!]! @paginate
-    article(id: ID! @eq): Article @find
-    articles: [Article!]! @paginate
-    me: User @auth(guard: "api")
     greet(name: String!): String
 }
 
-type Mutation {
-    createUser(
-        name: String!
-        email: String! @rules(apply: ["email", "unique:users"])
-        password: String! @bcrypt @rules(apply: ["min:6"])
-    ) : User @create
+type Mutation
 
-    createArticle(
-        title: String!
-        content: String!
-    ) : Article
-        @field(resolver: "ArticleMutator@create")
-        @middleware (checks: ["auth:api"])
-
-
-    login(
-        email: String!
-        password: String!
-    ) : String 
-        @field(resolver: "AuthMutator@resolve")
+type Subscription {
+  newUser: User
 }
+
+#import user.graphql
+#import article.graphql
+#import login.graphql

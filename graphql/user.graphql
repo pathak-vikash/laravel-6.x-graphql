@@ -1,0 +1,22 @@
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    articles: [Article!]! @hasMany
+}
+
+extend type Query {
+    user(id: ID! @eq): User @find
+    all_users: [User!]! @all
+    users_by_name(name: String!): [User!]! @field(resolver: "UserQuery@resolve")
+    users(name: String @where(operator: "like")): [User!]! @paginate
+}
+
+
+extend type Mutation {
+    createUser(
+        name: String!
+        email: String! @rules(apply: ["email", "unique:users"])
+        password: String! @bcrypt @rules(apply: ["min:6"])
+    ) : User @create
+}
