@@ -26,6 +26,6 @@ extend type Mutation {
         id: ID!
         name: String!
         confirm_email: Senitizer!
-        email: Email! @rules(apply: ["same:confirm_email"])
+        email: Email! @rules(apply: ["same:confirm_email"], messages: {same:"The email must be same as confirm_email"})
     ) : User @update
 }
