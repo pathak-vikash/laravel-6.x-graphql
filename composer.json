@@ -13,6 +13,7 @@
         "laravel/framework": "^6.2",
         "laravel/telescope": "^2.1",
         "laravel/tinker": "^1.0",
+        "mll-lab/graphql-php-scalars": "^2.1",
         "nuwave/lighthouse": "^4.6"
     },
     "require-dev": {

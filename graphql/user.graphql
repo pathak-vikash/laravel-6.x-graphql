@@ -12,6 +12,8 @@ extend type Query {
     users(name: String @where(operator: "like")): [User!]! @paginate
 }
 
+scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
+scalar Senitizer
 
 extend type Mutation {
     createUser(
@@ -19,4 +21,11 @@ extend type Mutation {
         email: String! @rules(apply: ["email", "unique:users"])
         password: String! @bcrypt @rules(apply: ["min:6"])
     ) : User @create
+
+    updateUser(
+        id: ID!
+        name: String!
+        confirm_email: Senitizer!
+        email: Email! @rules(apply: ["same:confirm_email"])
+    ) : User @update
 }
