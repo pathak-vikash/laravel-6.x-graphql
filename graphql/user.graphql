@@ -13,6 +13,7 @@ extend type Query {
 }
 
 scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
+scalar Senitizer
 
 extend type Mutation {
     createUser(
@@ -24,7 +25,7 @@ extend type Mutation {
     updateUser(
         id: ID!
         name: String!
-        confirm_email: String!
+        confirm_email: Senitizer!
         email: Email! @rules(apply: ["same:confirm_email"])
     ) : User @update
 }
