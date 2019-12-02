@@ -24,6 +24,7 @@ extend type Mutation {
     updateUser(
         id: ID!
         name: String!
-        email: Email!
+        confirm_email: String!
+        email: Email! @rules(apply: ["same:confirm_email"])
     ) : User @update
 }
